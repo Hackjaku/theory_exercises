@@ -7,7 +7,7 @@ add_executable(${PROJECT_NAME} main.cc)
 
 set(CMAKE_CXX_STANDARD 20)
 
-find_package(Boost 1.61.0 REQUIRED)
+find_package(Boost 1.78.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
