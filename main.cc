@@ -3,9 +3,11 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "./utils/vector_utils.h"
 
 using namespace boost::numeric::ublas;
 using namespace std;
+using namespace vector_utils;
 
 int main(int argc, char* argv[]) {
     int Q_size, I_size;
@@ -15,7 +17,7 @@ int main(int argc, char* argv[]) {
     std::cin >> I_size; // symbols count
     cout << endl;
     matrix<int> delta(Q_size, I_size); // generated matrix
-    std::vector<int> I;
+    std::vector<char> I;
     
     cout << "Insert symbols\n";
     for(unsigned i = 0; i < I_size; ++i) {
@@ -54,32 +56,28 @@ int main(int argc, char* argv[]) {
     }
 
     while(true) {
+        input_loop:
         try {
             string s;
-            cout << "\n\nINPUT STRING: ";
+            cout << "\nINPUT STRING: ";
             cin >> s;
 
             int actual_state = q0;
             for (char c : s) {
-                auto it = find(I.begin(), I.end(), c);
-                if (it == I.end()) {
-                    cout << "BAD_INPUT";
-                    continue;
-                }
-                int index = it - I.begin();
-                actual_state = delta(actual_state, index);
-                if (actual_state == -1) {
-                    cout << "REJECTED\n";
-                    continue;
+                int index = index_of<char>(c, I);
+                if (index == -1) {
+                    cout << "BAD_INPUT\n";
+                    goto input_loop;
+                } else {
+                    actual_state = delta(actual_state, index);
+                    if (actual_state == -1) {
+                        cout << "REJECTED\n";
+                        goto input_loop;
+                    }
                 }
             }
 
-            auto it = find(F.begin(), F.end(), actual_state);
-            if (it != F.end()) {
-                cout << "ACCEPTED\n";
-            } else {
-                cout << "REJECTED\n";
-            }
+            cout << ((contains<int>(actual_state, F)) ? "ACCEPTED\n" : "REJECTED\n");
         } catch(...) {
             cout << "ERR\n\n";
         }
@@ -87,3 +85,4 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
