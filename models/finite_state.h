@@ -28,6 +28,7 @@ namespace machines {
         void set_matrix_relation(matrix<int>);
 
         std::vector<char> get_symbols();
+        bool validate_input(std::string);
     private:
         std::vector<int> Q; // machine states
         std::vector<char> I; // machine accepted symbols

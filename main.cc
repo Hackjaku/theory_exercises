@@ -43,23 +43,8 @@ int main(int argc, char* argv[]) {
             string s;
             cout << "\nINPUT STRING: ";
             cin >> s;
-
-            int actual_state = q0;
-            for (char c : s) {
-                int index = index_of<char>(c, I);
-                if (index == -1) {
-                    cout << "BAD_INPUT\n";
-                    goto input_loop;
-                } else {
-                    actual_state = delta(actual_state, index);
-                    if (actual_state == -1) {
-                        cout << "REJECTED\n";
-                        goto input_loop;
-                    }
-                }
-            }
-
-            cout << ((contains<int>(actual_state, F)) ? "ACCEPTED\n" : "REJECTED\n");
+        bool accepted = fsm.validate_input(s);
+        cout << (accepted ? "ACCEPTED" : "REJECTED");
         } catch(...) {
             cout << "ERR\n\n";
         }
@@ -112,4 +97,5 @@ std::vector<int> input_final_states(int size) {
         F.push_back(Fi);
         cout << endl;
     }
+    return F;
 }

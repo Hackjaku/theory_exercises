@@ -34,4 +34,20 @@ namespace machines {
     std::vector<char> FiniteState::get_symbols() {
         return this->I;
     }
+
+    bool FiniteState::validate_input(std::string input) {
+        int actual_state = this->q0;
+        for (char in : input) {
+            int index = utils::vector::index_of<char>(in, this->I);
+            if (index == -1) {
+                throw; // TODO define error to be thrown
+            } else {
+                actual_state = this->delta(actual_state, index);
+                if (actual_state == -1) {
+                    return false;
+                }
+            }
+        }
+        return utils::vector::contains<int>(actual_state, this->F);
+    }
 }
