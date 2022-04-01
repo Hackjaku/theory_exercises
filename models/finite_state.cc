@@ -1,20 +1,5 @@
-#ifndef FINITE_STATE
-#define FINITE_STATE
+#include "./finite_state.h"
 
-#include <boost/numeric/ublas/matrix.hpp>
-#include <boost/numeric/ublas/io.hpp>
-#include <iostream>
-#include <vector>
-#include <string>
-#include "../utils/vector_utils.h"
-
-namespace machines {
-    using namespace std;
-    class FiniteState {
-    public:
-        FiniteState();
-    private:
-    };
+void FiniteState::set_states(std::vector<int> states) {
+    
 }
-
-#endif

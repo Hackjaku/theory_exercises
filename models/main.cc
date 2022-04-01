@@ -1,4 +1,4 @@
-#include "./finite_state.cc"
+#include "./finite_state.h"
 
 using namespace boost::numeric::ublas;
 using namespace std;
