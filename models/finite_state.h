@@ -14,11 +14,20 @@ namespace machines {
     class FiniteState {
     public:
         FiniteState();
+        FiniteState(
+            std::vector<int> states,
+            std::vector<char> symbols,
+            int initial_state,
+            std::vector<int> final_state,
+            matrix<int> relation
+        );
         void set_states(std::vector<int>);
-        void set_accepted_symbols(std::vector<int>);
+        void set_accepted_symbols(std::vector<char>);
         void set_initial_state(int);
-        void set_matrix_relation(matrix<int>);
         void set_final_states(std::vector<int>);
+        void set_matrix_relation(matrix<int>);
+
+        std::vector<char> get_symbols();
     private:
         std::vector<int> Q; // machine states
         std::vector<char> I; // machine accepted symbols
@@ -26,6 +35,6 @@ namespace machines {
         int q0; // initial state
         std::vector<int> F; // final states
     };
-}
+};
 
 #endif

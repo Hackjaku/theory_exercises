@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 
-namespace vector_utils {
+namespace utils::vector {
 
     using namespace std;
 
