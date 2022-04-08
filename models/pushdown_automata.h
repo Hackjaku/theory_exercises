@@ -14,6 +14,21 @@ namespace machines {
     private:
         std::vector<char> s; // stack accepted symbols
         std::vector<char> stack; // the actual stack
+        char stack_top; // the top of the stack
+
+    public:
+        Pushdown();
+        Pushdown(
+            std::vector<int> states,
+            std::vector<char> symbols,
+            int initial_state,
+            std::vector<int> final_state,
+            matrix<int> relation, // this is a 3 dimensional matrix
+            std::vector<char> stack_symbols,
+            std::vector<char> stack_initial
+        );
+
+
     };
 }
 

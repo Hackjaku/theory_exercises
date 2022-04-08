@@ -29,7 +29,7 @@ namespace machines {
 
         std::vector<char> get_symbols();
         bool validate_input(std::string);
-    protected:
+    private:
         std::vector<int> Q; // machine states
         std::vector<char> I; // machine accepted symbols
         matrix<int> delta; // machine relation (Q x I -> Q)
