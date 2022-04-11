@@ -52,3 +52,31 @@ bool FiniteState::validate_input(std::string input) {
     // now I have completed the input processing phase
     return utils::vector::contains<int>(actual_state, this->F); // I check if the current (last) state is a final one 
 }
+
+FiniteState FiniteState::minimize() {
+    std::vector<int> reachable_states; // a new set of reachable states
+    reachable_states.push_back(this->q0); // I add the initial state to the set of reachable states
+    std::vector<int> new_states; // a new set of states
+    new_states.push_back(this->q0); // I add the initial state to the set of states
+
+    do {
+        std::vector<int> temp; // a temporary set of states
+        for (auto q : new_states) { // for each new state
+            for (auto c : this->I) { // for each symbol
+                temp.push_back(this->transition_function(q, c)); // I add the next state to the temporary set
+            }
+            new_states = utils::vector::remove_all<int>(temp, reachable_states);
+            reachable_states.insert(reachable_states.end(), new_states.begin(), new_states.end());
+        }
+    } while(new_states.size() > 0);
+    return FiniteState(reachable_states, this->I, this->q0, this->F, this->delta);
+}
+
+int FiniteState::transition_function(int q, char c) {
+    int index = utils::vector::index_of<char>(c, this->I); // the index of the symbol in input
+    if (index == -1) { // the symbol is not accepted
+        return -1;
+    } else {
+        return this->delta(q, index); // the destination state (maybe -1)
+    }
+}

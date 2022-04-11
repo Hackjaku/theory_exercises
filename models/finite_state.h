@@ -29,12 +29,16 @@ namespace machines {
 
         std::vector<char> get_symbols();
         bool validate_input(std::string);
+
+        FiniteState minimize();
     private:
         std::vector<int> Q; // machine states
         std::vector<char> I; // machine accepted symbols
         matrix<int> delta; // machine relation (Q x I -> Q)
         int q0; // initial state
         std::vector<int> F; // final states
+
+        int transition_function(int, char);
     };
 };
 
