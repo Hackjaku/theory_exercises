@@ -40,6 +40,20 @@ namespace utils::vector {
         }
         return list;
     }
+
+    template <class T>
+    std::vector<T> unique_union(std::vector<T> list1, std::vector<T> list2) {
+        std::vector<T> list;
+        for (auto c : list1) {
+            list.push_back(c);
+        }
+        for (auto c : list2) {
+            list.push_back(c);
+        }
+        sort(list.begin(), list.end());
+        list.erase(unique(list.begin(), list.end()), list.end());
+        return list;
+    }
 }
 
 #endif

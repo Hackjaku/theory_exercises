@@ -39,6 +39,7 @@ namespace machines {
         std::vector<int> F; // final states
 
         std::vector<int> reachable_states(); // a new set of reachable states
+        void nondistinguishable_states(); // a new set of reachable states
         int transition_function(int, char);
     };
 };

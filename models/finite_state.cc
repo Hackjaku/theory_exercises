@@ -66,13 +66,21 @@ std::vector<int> FiniteState::reachable_states() {
                 temp.push_back(this->transition_function(q, c)); // I add the next state to the temporary set
             }
             new_states = utils::vector::remove_all<int>(temp, reachable_states);
-            reachable_states.insert(reachable_states.end(), new_states.begin(), new_states.end());
+            reachable_states = utils::vector::unique_union(reachable_states, new_states);
         }
     } while(new_states.size() > 0);
+    this->Q = reachable_states;
     return reachable_states;
 }
 
+void FiniteState::nondistinguishable_states() {
+    // hopcroft's algorithm
+    std::vector<int> P = utils::vector::unique_union(this->F, this->Q); // I create a new set of states
+    std::vector<int> W = utils::vector::unique_union(this->F, this->Q); // I create a new set of states
+    while (W.size() != 0) {
 
+    }
+}
 
 int FiniteState::transition_function(int q, char c) {
     int index = utils::vector::index_of<char>(c, this->I); // the index of the symbol in input
