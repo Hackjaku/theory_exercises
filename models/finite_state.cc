@@ -53,7 +53,7 @@ bool FiniteState::validate_input(std::string input) {
     return utils::vector::contains<int>(actual_state, this->F); // I check if the current (last) state is a final one 
 }
 
-FiniteState FiniteState::minimize() {
+std::vector<int> FiniteState::reachable_states() {
     std::vector<int> reachable_states; // a new set of reachable states
     reachable_states.push_back(this->q0); // I add the initial state to the set of reachable states
     std::vector<int> new_states; // a new set of states
@@ -69,8 +69,10 @@ FiniteState FiniteState::minimize() {
             reachable_states.insert(reachable_states.end(), new_states.begin(), new_states.end());
         }
     } while(new_states.size() > 0);
-    return FiniteState(reachable_states, this->I, this->q0, this->F, this->delta);
+    return reachable_states;
 }
+
+
 
 int FiniteState::transition_function(int q, char c) {
     int index = utils::vector::index_of<char>(c, this->I); // the index of the symbol in input

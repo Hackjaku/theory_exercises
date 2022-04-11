@@ -38,6 +38,7 @@ namespace machines {
         int q0; // initial state
         std::vector<int> F; // final states
 
+        std::vector<int> reachable_states(); // a new set of reachable states
         int transition_function(int, char);
     };
 };
