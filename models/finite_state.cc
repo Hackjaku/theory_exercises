@@ -78,7 +78,11 @@ void FiniteState::nondistinguishable_states() {
     std::vector<int> P = utils::vector::unique_union(this->F, this->Q); // I create a new set of states
     std::vector<int> W = utils::vector::unique_union(this->F, this->Q); // I create a new set of states
     while (W.size() != 0) {
-
+        // chose and remove a set A from W
+        for (auto c : this->I) {
+            // create a set formed of all states for which a transition on c leads to a state in A
+            
+        }
     }
 }
 
