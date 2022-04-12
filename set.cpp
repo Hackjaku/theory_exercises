@@ -4,7 +4,7 @@
 using namespace std;
 
 namespace examples {
-    void master_function() {
+    void set_showcase() {
         set<int> s0; // empty set
         set<int> s1 = {6, 10, 5, 1}; // defined with values
 
