@@ -1,6 +1,9 @@
 #ifndef DATA_TYPES_H
 #define DATA_TYPES_H
 
+#define ARRAY_SIZE 100
+
+
 #include <iostream>
 
 class free_list_node {
@@ -24,12 +27,33 @@ public:
 };
 
 
-class double_list_node {
+template <typename T>
+class queue_node {
 public:
-    double_list_node *next;
-    double_list_node *prev;
-    int value;
+    T value;
+protected:
+    queue_node();
+    queue_node *next;
 };
+
+
+template <typename T>
+class queue : private queue_node<T> {
+public:
+    queue();
+    void enqueue(T); // add node to the end of the list
+    T dequeue(); // remove node at index
+    bool is_empty(); // check if queue is empty
+private:
+    queue_node<T> *root;
+};
+
+// class double_list_node {
+// public:
+//     double_list_node *next;
+//     double_list_node *prev;
+//     int value;
+// };
 
 // class double_list : private double_list_node {
 // public:
@@ -59,10 +83,26 @@ public:
     void preorder_visit(binary_tree_node<T> *);
     void postorder_visit(binary_tree_node<T> *);
     void in_order_visit(binary_tree_node<T> *);
+    void breadth_first_visit(binary_tree_node<T> *);
+
+    int count(binary_tree_node<T> *);
 
 private:
     binary_tree_node<T> *root;
     void visit(binary_tree_node<T> *);
+};
+
+template <typename T>
+class binary_tree_array {
+public:
+    binary_tree_array();
+
+    T get_father(int);
+    T get_left_son(int);
+    T get_right_son(int);
+    T get_brother(int);
+protected:
+    T data[ARRAY_SIZE];
 };
 
 #endif // DATA_TYPES_H

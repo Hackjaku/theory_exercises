@@ -92,3 +92,86 @@ void binary_tree<T>::in_order_visit(binary_tree_node<T> *subroot) {
     visit(subroot); // visito il nodo corrente
     preorder(subroot->right); // figlio di destra
 }
+
+template <typename T>
+int binary_tree<T>::count(binary_tree_node<T> *subroot) {
+    if (subroot == nullptr) {
+        return 0;
+    }
+    return 1 + count(subroot->left) + count(subroot->right);
+}
+
+template <typename T>
+queue<T>::queue() {
+    root = nullptr;
+}
+
+template <typename T>
+void queue<T>::enqueue(T value) {
+    queue_node<T> *new_node;
+    new_node->value = value;
+    new_node->next = nullptr;
+    if (root == nullptr) {
+        root = new_node;
+    } else {
+        queue_node<T> *current = root;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = new_node;
+    }
+}
+
+template <typename T>
+T queue<T>::dequeue() {
+    if (root == nullptr) {
+        throw "queue is empty";
+    }
+    T value = root->value;
+    auto tmp = root->next;
+    delete root;
+    root = tmp;
+    return value;
+}
+
+template <typename T>
+bool queue<T>::is_empty() {
+    return root == nullptr;
+}
+
+template <typename T>
+void binary_tree<T>::breadth_first_visit(binary_tree_node<T> *subroot) {
+    queue<binary_tree_node<T> *> q; // creo una coda dove salvare i nodi da visitare
+    q.enqueue(subroot); // inserisco il nodo radice nella coda
+    while (!q.is_empty()) {
+        visit(q.dequeue()); // visito il nodo in testa alla coda
+        // TODO verifica che non siano nullptr
+        q.enqueue(subroot->left); // inserisco il nodo sinistro nella coda
+        q.enqueue(subroot->right); // inserisco il nodo destro nella coda
+    }
+}
+
+template <typename T>
+T binary_tree_array<T>::get_father(int index) {
+    return data[(index - 1) / 2];
+}
+
+template <typename T>
+T binary_tree_array<T>::get_left_son(int index) {
+    return data[2 * index + 1];
+}
+
+template <typename T>
+T binary_tree_array<T>::get_right_son(int index) {
+    return data[2 * i + 2];
+}
+
+template <typename T>
+T binary_tree_array<T>::get_brother(int index) {
+    if (index % 2 == 0) {
+        return data[index - 1];
+    } else {
+        return data[index ++ 1];
+    }
+}
+
