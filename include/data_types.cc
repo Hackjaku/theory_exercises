@@ -50,3 +50,45 @@ int free_list::remove_node(int index) {
         return 0;
     }
 }
+
+template <typename T>
+binary_tree<T>::binary_tree() {
+    root = nullptr;
+}
+
+// define preorder function
+template <typename T>
+void binary_tree<T>::preorder_visit(binary_tree_node<T> *subroot) {
+    // e' meglio il controllo se il nodo attuale è nullo piuttosto che verificare se i figli sono nulli
+    if (subroot == nullptr) {
+        return;
+    }
+    visit(subroot); // visito il nodo corrente
+    preorder(subroot->left); // figlio di sinistra
+    preorder(subroot->right); // figlio di destra
+}
+
+template <typename T>
+void binary_tree<T>::visit(binary_tree_node<T> *subroot) {
+    std::cout << subroot->value << " ";
+}
+
+template <typename T>
+void binary_tree<T>::postorder_visit(binary_tree_node<T> *subroot) {
+    if (subroot == nullptr) {
+        return;
+    }
+    postorder(subroot->left); // figlio di sinistra
+    postorder(subroot->right); // figlio di destra
+    visit(subroot); // visito il nodo corrente
+}
+
+template <typename T>
+void binary_tree<T>::in_order_visit(binary_tree_node<T> *subroot) {
+    if (subroot == nullptr) {
+        return;
+    }
+    preorder(subroot->left); // figlio di sinistra
+    visit(subroot); // visito il nodo corrente
+    preorder(subroot->right); // figlio di destra
+}
