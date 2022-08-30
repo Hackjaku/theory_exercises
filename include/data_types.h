@@ -105,4 +105,32 @@ protected:
     T data[ARRAY_SIZE];
 };
 
+
+template <typename T> // uso una template, ma occorre avere sempre un tipo per cui e' definito ordinamento
+class avl_tree_node {
+public:
+    T value;
+protected:
+    avl_tree_node();
+    avl_tree_node *left;
+    avl_tree_node *right;
+    int height;
+};
+
+template <typename T>
+class avl_tree : private avl_tree_node<T> {
+public:
+    avl_tree();
+
+private:
+    avl_tree_node<T> *root;
+    int node_height(avl_tree_node<T> *); // ottieni altezza del nodo
+
+    avl_tree_node<T> *rotate_right(avl_tree_node<T> *);
+    avl_tree_node<T> *rotate_left(avl_tree_node<T> *);
+
+    int get_balance(avl_tree_node<T> *);
+    avl_tree_node<T> *insert(avl_tree_node<T> *, int);
+};
+
 #endif // DATA_TYPES_H
