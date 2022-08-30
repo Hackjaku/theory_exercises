@@ -1,6 +1,8 @@
 #include "models/finite_state.h"
 #include "utils/finite_state_utils.h"
 
+#include "include/data_types.h"
+
 using namespace std;
 using namespace utils::finite_state;
 
@@ -24,6 +26,8 @@ int main(int argc, char* argv[]) {
             cout << "ERR\n\n";
         }
     }
+
+    free_list fl;
 
     return 0;
 }
