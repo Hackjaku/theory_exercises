@@ -1,5 +1,9 @@
 #include "data_types.h"
 
+int max(int a, int b) {
+    return a > b ? a : b;
+}
+
 int free_list::at(int index) {
     free_list_node *current = root;
     for (int i = 0; i < index; ++i) {
@@ -175,3 +179,85 @@ T binary_tree_array<T>::get_brother(int index) {
     }
 }
 
+template <typename T>
+int avl_tree<T>::node_height(avl_tree_node<T>* node) {
+    if (node == nullptr) {
+        return 0;
+    }
+    return node->height;
+}
+
+template <typename T>
+avl_tree_node<T>* avl_tree<T>::rotate_left(avl_tree_node<T>* subroot) {
+    // ruoto verso sinistra il sottoalbero con radice subroot
+    avl_tree_node<T> *new_subroot = subroot->right;
+    avl_tree_node<T> *T2 = new_subroot->left;
+
+    new_subroot->left = subroot;
+    subroot->right = T2;
+
+    subroot->height = max(node_height(x->left), node_height(x->right)) + 1;
+    new_subroot->height = max(node_height(new_subroot->left), node_height(new_subroot->right)) + 1;
+
+    return new_subroot;
+}
+
+template <typename T>
+avl_tree_node<T>* avl_tree<T>::rotate_right(avl_tree_node<T>* subroot) {
+    // ruoto verso sinistra il sottoalbero con radice subroot
+    avl_tree_node<T> *new_subroot = subroot->left;
+    avl_tree_node<T> *T2 = new_subroot->right;
+
+    new_subroot->right = subroot;
+    subroot->left = T2;
+
+    subroot->height = max(node_height(subroot->left), node_height(subroot->right)) + 1;
+    new_subroot->height = max(node_height(new_subroot->left), node_height(new_subroot->right)) + 1;
+
+    return new_subroot;
+}
+
+template <typename T>
+int avl_tree<T>::get_balance(avl_tree_node<T>* subroot) {
+    return node_height(subroot->left) - node_height(subroot->right);
+}
+
+template <typename T>
+avl_tree_node<T>* avl_tree<T>::insert(avl_tree_node<T>* subroot, int value) {
+    if (subroot == nullptr) {
+        return new avl_tree_node<T>(value);
+    }
+    if (value < subroot->value) {
+        subroot->left = insert(subroot->left, value);
+    } else if (value > subroot->value) {
+        subroot->right = insert(subroot->right, value);
+    } else {
+        return subroot;
+    }
+
+    // l'altezza e' uguale a quella del figlio piu' alto + 1, quindi le foglie hanno altezza 1
+    // e la radice ha altezza massima
+    node_height = 1 + max(node_height(subroot->left), node_height(subroot->right));
+
+    int balance = get_balance(subroot); // la differenza tra i due sottoalberi
+
+    if (balance > 1 && value < subroot->left->value) {
+        return rotate_right(subroot);
+    }
+
+    if (balance < -1 && value > subroot->right->value) {
+        return rotate_left(subroot);
+    }
+
+    if (balance > 1 && value > subroot->left->value) {
+        subroot->left = rotate_left(subroot->left);
+        return rotate_right(subroot);
+    }
+
+    if (balance < -1 && value < subroot->right->value) {
+        subroot->right = rotate_right(subroot->right);
+        return rotate_left(subroot);
+    }
+
+    return subroot;
+}
