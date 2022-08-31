@@ -73,3 +73,44 @@ void shell_sort(T array[], int n) {
         insertion_sort_increment(array, n, 1);
     }
 }
+
+template <typename T>
+int find_pivot(T array[], int i, int j) {
+    return (i + j) / 2;
+}
+
+template <typename T>
+int partition(T array[], int l, int r, T pivot) {
+    do {
+        while (a[++l] < pivot); // salgo con l fino ad un valore maggiore di pivot
+        while ((r != 0) && (array[--r] > pivot)); // scendo con r fino ad un valore minore di pivot
+
+        // swap
+        T tmp = array[l]; // scambio le posizioni, in modo che i valori > pivot siano a destra e quelli < siano a sinistra
+        array[l] = array[r];
+        array[r] = tmp;
+    } while (l < r); // fin quando gli indici non si incrociano
+
+    // effettuo l'ultimo swap per rimettere a posto il valore scambiato "di troppo"
+    T tmp = array[l];
+    array[l] = array[r];
+    array[r] = tmp;
+    return l;
+}
+
+template <typename T>
+void quicksort(T array[], int i, int j) {
+    if (j < i) {
+        return; // la lista e' troppo piccola
+    }
+
+    int pivot_index = find_pivot(array, i, j);
+    int k = partition<T>(array, i - 1, j, array[j]); // k e' l'indice dell'elemento a sinistra della partizione eseguita
+
+    T tmp = array[j];
+    array[j] = array[k];
+    array[k] = tmp;
+
+    quicksort(array, i, k - 1);
+    quicksort(array, k + 1, j);
+}
