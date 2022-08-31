@@ -328,3 +328,52 @@ splay_tree_node<T>* splay_tree<T>::splay(splay_tree_node<T>* subroot, int value)
         return (subroot->right == nullptr) ? subroot : left_rotate(subroot);
     }
 }
+
+template <typename T>
+void max_heap<T>::sift_down(int index) {
+    while (!is_leaf(index)) { // fin quando non arrivo ad una foglia
+        int j = left_child(index); // prendo la posizione del figlio di sinistra
+        int rc = right_child(index); // prendo la posizione del figlio di destra
+
+        if ((rc < ARRAY_SIZE) && (data[j] < data[rc])) {
+            // se sono ancora nei limiti dell'array e il figlio di destra e' piu' grande di quello di sinistra
+            j = rc; // j contiene la posizione del figlio di destra
+        }
+
+        if (data[index] >= data[j]) {
+            // in questo punto data[j] e' il maggiore tra i due figli di index
+            // verifico se la posizione corrente (index) e' maggiore o uguale dell'oggetto in posizione j
+            return;
+        }
+
+        // se sono qui, la posizione corrente (index) e' minore dell'oggetto in posizione j
+        // effettuo lo scambio
+        T tmp = data[index];
+        data[index] = data[j];
+        data[j] = tmp;
+
+        // continuo con con la procedura passando a j (che e' il maggiore tra i figli di current index)
+        index = j;
+    }
+}
+
+template <typename T>
+bool max_heap<T>::is_leaf(int index) {
+    // in questo caso l'indice e' sicuramente una foglia
+    if (index >= ARRAY_SIZE || left_child(index) >= ARRAY_SIZE) {
+        return false;
+    }
+    // qui andrebbe implementata anche una logica per vedere se il contenuto dell'array
+    // e' popolato oppure no
+    return true;
+}
+
+template <typename T>
+int max_heap<T>::left_child(int index) {
+    return 2 * index + 1;
+}
+
+template <typename T>
+int max_heap<T>::right_child(int index) {
+    return 2 * index + 2;
+}

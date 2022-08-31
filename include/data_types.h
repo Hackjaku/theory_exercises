@@ -156,4 +156,17 @@ private:
     splay_tree_node<T>* splay(splay_tree_node<T> *, int);
 };
 
+template <typename T>
+class max_heap {
+public:
+    max_heap();
+    void build_heap();
+private:
+    T data[ARRAY_SIZE];
+    void sift_down(int);
+    bool is_leaf(int);
+    int left_child(int);
+    int right_child(int);
+};
+
 #endif // DATA_TYPES_H
