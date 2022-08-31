@@ -133,4 +133,27 @@ private:
     avl_tree_node<T> *insert(avl_tree_node<T> *, int);
 };
 
+template <typename T>
+class splay_tree_node {
+public:
+    T value;
+protected:
+    splay_tree_node();
+    splay_tree_node *left;
+    splay_tree_node *right;
+};
+
+template <typename T>
+class splay_tree : private splay_tree_node<T> {
+public:
+    splay_tree();
+    splay_tree_node<T> *insert(splay_tree_node<T> *, int);
+
+private:
+    splay_tree_node<T> *root;
+    splay_tree_node<T>* right_rotate(splay_tree_node<T> *);
+    splay_tree_node<T>* left_rotate(splay_tree_node<T> *);
+    splay_tree_node<T>* splay(splay_tree_node<T> *, int);
+};
+
 #endif // DATA_TYPES_H

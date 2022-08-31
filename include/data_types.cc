@@ -241,23 +241,90 @@ avl_tree_node<T>* avl_tree<T>::insert(avl_tree_node<T>* subroot, int value) {
 
     int balance = get_balance(subroot); // la differenza tra i due sottoalberi
 
+    // il nodo di sinistra e' piu' alto di quello di destra
+    // e il valore da inserire va messi a sinistra del figlio di sinistra
     if (balance > 1 && value < subroot->left->value) {
-        return rotate_right(subroot);
+        return rotate_right(subroot); // ruoto a destra
     }
 
+    // il nodo di destra e' piu' alto di quello di sinistra
+    // e il valore da inserire va messo a destra del figlio di destra
     if (balance < -1 && value > subroot->right->value) {
         return rotate_left(subroot);
     }
 
+    // il nodo di sinistra e' piu' alto di quello di destra
+    // e il valore da inserire va messo a destra del figlio di sinistra
     if (balance > 1 && value > subroot->left->value) {
         subroot->left = rotate_left(subroot->left);
         return rotate_right(subroot);
     }
 
+    // il nodo di destra e' piu' alto di quello di sinistra
+    // e il valore da inserire va messo a sinistra del figlio di destra
     if (balance < -1 && value < subroot->right->value) {
         subroot->right = rotate_right(subroot->right);
         return rotate_left(subroot);
     }
 
     return subroot;
+}
+
+template <typename T>
+splay_tree_node<T>* splay_tree<T>::right_rotate(splay_tree_node<T>* subroot) {
+    splay_tree_node<T> *new_subroot = subroot->left;
+    subroot->left = new_subroot->right;
+    new_subroot->right = subroot;
+    return new_subroot
+}
+
+template <typename T>
+splay_tree_node<T>* splay_tree<T>::left_rotate(splay_tree_node<T>* subroot) {
+    splay_tree_node<T> *new_subroot = subroot->right;
+    subroot->left = new_subroot->left;
+    new_subroot->left = subroot;
+    return new_subroot
+}
+
+template <typename T>
+splay_tree_node<T>* splay_tree<T>::splay(splay_tree_node<T>* subroot, int value) {
+    if (subroot == nullptr || subroot->value == value) {
+        return subroot;
+    }
+
+    if (subroot->value > value) {
+        if (subroot->left == nullptr) {
+            return subroot;
+        }
+
+        if (subroot->left->value == value) {
+            subroot->left->left = splay(subroot->left->left, value);
+
+            subroot = right_rotate(subroot);
+        } else if (root->left->value < value) {
+            subroot->left->right = splay(subroot->left->right, value);
+
+            if (subroot->left->right != nullptr) {
+                subroot->left = left_rotate(subroot->left);
+            }
+        }
+        return (subroot->left == nullptr) ? subroot : right_rotate(subroot);
+    } else {
+        if (subroot->right == nullptr) {
+            return subroot;
+        }
+
+        if (subroot->right->value > value) {
+            subroot->right->left = splay(subroot->right->left, value);
+
+            if (subroot->right->left != nullptr) {
+                subroot->right = right_rotate(subroot->right);
+            }
+        } else if (subroot->right->value < value) {
+            subroot->right->right = splay(subroot->right->right, value);
+            subroot = left_rotate(subroot);
+
+        }
+        return (subroot->right == nullptr) ? subroot : left_rotate(subroot);
+    }
 }
