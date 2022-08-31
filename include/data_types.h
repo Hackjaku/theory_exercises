@@ -169,4 +169,32 @@ private:
     int right_child(int);
 };
 
+
+template <typename T>
+class gnt_node {
+protected:
+    gnt_node();
+    T value;
+    bool is_leaf();
+    gnt_node *parent; // continene il puntatore al padre
+    gnt_node *leftmost_child; // continene il puntatore al figlio piu' a sinistra
+    gnt_node *right_sibling; // continene il puntatore al fratello alla sua destra
+
+    void insert_first(gnt_node *); // inserisce un figlio
+    void insert_next(gnt_node *); // inserisce un fratello
+    void remove_first(gnt_node *); // rimuove un figlio
+    void remove_next(gnt_node *); // rimuove un fratello
+};
+
+template <typename T>
+class generic_tree : private gnt_node<T> {
+public:
+    generic_tree();
+    void clear();
+private:
+    gnt_node<T> *root;
+    void new_root(T&, gnt_node<T> *, gnt_node<T> *); // combina due sottoalberi
+    void preorder_visit(gnt_node<T> *);
+};
+
 #endif // DATA_TYPES_H

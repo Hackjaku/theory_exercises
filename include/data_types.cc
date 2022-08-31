@@ -384,3 +384,15 @@ template <typename T>
 int max_heap<T>::right_child(int index) {
     return 2 * index + 2;
 }
+
+
+template <typename T>
+void generic_tree<T>::preorder_visit(gnt_node<T>* subroot) {
+    // cout << subroot->value << " ";
+    // ho visitato questo nodo
+    for (gnt_node<T>* child = subroot->leftmost_child(); child != nullptr; child = child->next_sibling()) {
+        // partendo dal figlio piu' a sinistra, eseguo preorder per ognuno dei miei figli
+        // usando la funzione next_sibling() dei nodi
+        preorder_visit(child);
+    }
+}
