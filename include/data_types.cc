@@ -358,6 +358,13 @@ void max_heap<T>::sift_down(int index) {
 }
 
 template <typename T>
+void max_heap<T>::build_heap() {
+    for (int i = ARRAY_SIZE /2 - 1; i >= 0; --i) {
+        sift_down(i);
+    }
+}
+
+template <typename T>
 bool max_heap<T>::is_leaf(int index) {
     // in questo caso l'indice e' sicuramente una foglia
     if (index >= ARRAY_SIZE || left_child(index) >= ARRAY_SIZE) {
