@@ -159,9 +159,10 @@ private:
 template <typename T>
 class max_heap {
 public:
-    max_heap();
-    void build_heap();
+    max_heap(T[]);
+    void removemax(T);
 private:
+    void build_heap();
     T data[ARRAY_SIZE];
     void sift_down(int);
     bool is_leaf(int);

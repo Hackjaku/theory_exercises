@@ -330,6 +330,12 @@ splay_tree_node<T>* splay_tree<T>::splay(splay_tree_node<T>* subroot, int value)
 }
 
 template <typename T>
+max_heap<T>::max_heap(T array[]) {
+    this->array = new T[capacity];
+    build_heap();
+}
+
+template <typename T>
 void max_heap<T>::sift_down(int index) {
     while (!is_leaf(index)) { // fin quando non arrivo ad una foglia
         int j = left_child(index); // prendo la posizione del figlio di sinistra
