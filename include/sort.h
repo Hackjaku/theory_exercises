@@ -2,11 +2,11 @@
 #define SORT_H
 
 #include "data_types.h"
+#include "../utils/utility_functions.h"
+#include "../utils/definitions.h"
+
 
 template <typename T>
 void insertion_sort(T[], int);
-
-template <typename T>
-void swap(T[], int, int);
 
 #endif // SORT_H

@@ -354,9 +354,8 @@ void max_heap<T>::sift_down(int index) {
 
         // se sono qui, la posizione corrente (index) e' minore dell'oggetto in posizione j
         // effettuo lo scambio
-        T tmp = data[index];
-        data[index] = data[j];
-        data[j] = tmp;
+
+        swap(data, index, j);
 
         // continuo con con la procedura passando a j (che e' il maggiore tra i figli di current index)
         index = j;

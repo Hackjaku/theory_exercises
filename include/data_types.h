@@ -1,10 +1,9 @@
 #ifndef DATA_TYPES_H
 #define DATA_TYPES_H
 
-#define ARRAY_SIZE 100
-
-
 #include <iostream>
+#include "../utils/utility_functions.h"
+#include "../utils/definitions.h"
 
 class free_list_node {
 public:

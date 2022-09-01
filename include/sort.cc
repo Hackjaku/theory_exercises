@@ -1,12 +1,5 @@
 #include "sort.h"
 
-template <typename T>
-void swap(T array[], int i, int j) {
-    T tmp = array[i];
-    array[i] = array[j];
-    array[j] = tmp;
-}
-
 // caso peggiore: n^2, quando le chiavi sono in ordine inverso
 // caso migliore: n, quando le chiavi sono gia' ordinate
 // caso medio: n^2 (sarebbe n^2/2, ma il tasso di crescita non dipende dalle costanti)
