@@ -364,7 +364,7 @@ void max_heap<T>::sift_down(int index) {
 
 template <typename T>
 void max_heap<T>::build_heap() {
-    for (int i = ARRAY_SIZE /2 - 1; i >= 0; --i) {
+    for (int i = ARRAY_SIZE / 2 - 1; i >= 0; --i) {
         sift_down(i);
     }
 }
