@@ -448,3 +448,15 @@ int count_values(binary_tree_node<T>* subroot) {
     }
     return subroot->value + count_values(subroot->left) + count_values(subroot->right);
 }
+
+void funzione(int n) {
+    int a;
+    if (n > 1) {
+        for (int i = 1; i < n*n; ++i) {
+            a = 1;
+        }
+        funzione(n - 1); // viene eseguita n - 1 volte
+    }
+    a = 0;
+    return;
+}
