@@ -401,3 +401,50 @@ void generic_tree<T>::preorder_visit(gnt_node<T>* subroot) {
         preorder_visit(child);
     }
 }
+
+template <typename T>
+void generic_tree<T>::verify_order(gnt_node<T>* subroot, bool& is_ordered) {
+
+    if (!is_ordered) {
+        return;
+    }
+
+    if (subroot == nullptr) {
+        return;
+    }
+
+    // se ho un figlio, verifico che sia maggiore di me
+    if (subroot->leftmost_child != nullptr) {
+        if (subroot->leftmost_child->value < subroot->value) {
+            is_ordered = false;
+            return;
+        }
+    }
+
+    // se ho un fratello, verifico che sia maggiore di me
+    if (subroot->right_sibling != nullptr) {
+        if (subroot->right_sibling->value < subroot->value) {
+            is_ordered = false;
+            return;
+        }
+    }
+
+    verify_order(subroot->leftmost_child, is_ordered);
+    verify_order(subroot->right_sibling, is_ordered);
+}
+
+template <typename T>
+void complexity_procedure(int n) {
+    if (n <= 1) {
+        return;
+    }
+}
+
+
+template <typename T>
+int count_values(binary_tree_node<T>* subroot) {
+    if (subroot == nullptr) {
+        return 0;
+    }
+    return subroot->value + count_values(subroot->left) + count_values(subroot->right);
+}

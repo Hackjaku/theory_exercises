@@ -195,6 +195,7 @@ private:
     gnt_node<T> *root;
     void new_root(T&, gnt_node<T> *, gnt_node<T> *); // combina due sottoalberi
     void preorder_visit(gnt_node<T> *);
+    void verify_order(gnt_node<T> *, bool&);
 };
 
 #endif // DATA_TYPES_H
