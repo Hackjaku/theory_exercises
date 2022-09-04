@@ -9,3 +9,11 @@ int max_recursive(int a[], int n) {
         return a[0];
     }
 }
+
+bool recursive_palindrome(int a[], int sx, int dx) {
+    if (sx >= dx) {
+        return true;
+    }
+    bool equals = a[sx] == a[dx];
+    return equals && recursive_palindrome(a, sx + 1, dx - 1);
+}
