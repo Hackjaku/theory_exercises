@@ -460,3 +460,30 @@ void funzione(int n) {
     a = 0;
     return;
 }
+
+template <typename T>
+int binary_tree<T>::subtree_sum(binary_tree_node<T> *subroot) {
+    if (subroot == nullptr) {
+        return 0;
+    }
+    if (subroot->left == nullptr && subroot->right == nullptr) {
+        return subroot->value;
+    }
+    return subtree_sum(subroot->left) + subtree_sum(subroot->right);
+}
+
+template <typename T>
+bool binary_tree<T>::is_value_balanced(binary_tree_node<T> *subroot) {
+    if (subroot == nullptr) { // ho chiamato la funzione su un nodo che avrebbe dovuto avere figli
+        return false;
+    }
+    if (subroot->left == nullptr && subroot->right == nullptr) {
+        return true;
+    }
+
+    int left_sum = subtree_sum(subroot->left);
+    int right_sum = subtree_sum(subroot->right);
+
+    bool is_balanced = left_sum == right_sum;
+    return is_balanced && is_value_balanced(subroot->left) && is_value_balanced(subroot->right);
+}

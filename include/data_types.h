@@ -84,6 +84,9 @@ public:
     void in_order_visit(binary_tree_node<T> *);
     void breadth_first_visit(binary_tree_node<T> *);
 
+    int subtree_sum(binary_tree_node<T> *);
+    bool is_value_balanced(binary_tree_node<T> *);
+
     int count(binary_tree_node<T> *);
 
 private:
