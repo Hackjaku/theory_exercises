@@ -198,4 +198,23 @@ private:
     void verify_order(gnt_node<T> *, bool&);
 };
 
+#define UNVISITED 0
+#define VISITED 1
+
+class graph {
+public:
+    virtual int n() = 0; // numero vertici
+    virtual int e() = 0; // numero archi
+
+    virtual int first_neighbor(int) = 0; // primo vicino
+    virtual int next_neighbor(int, int) = 0; // vicino successivo
+
+    virtual void set_edge(int, int, int) = 0; // inserisce un arco
+    virtual void del_edge(int, int) = 0; // rimuove un arco
+
+    virtual int weight(int, int) = 0; // peso di un arco
+    virtual int get_mark(int) = 0;
+    virtual void set_mark(int, int) = 0;
+};
+
 #endif // DATA_TYPES_H
