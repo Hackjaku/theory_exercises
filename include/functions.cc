@@ -42,3 +42,5 @@ void graph_traverse(graph* G) {
         }
     }
 }
+
+// exercise
