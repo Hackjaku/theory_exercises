@@ -13,3 +13,5 @@ void insertion_sort(T[], int);
 
 
 // add b tree
+// add b+ tree
+// add b* tree
