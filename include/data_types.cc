@@ -487,3 +487,19 @@ bool binary_tree<T>::is_value_balanced(binary_tree_node<T> *subroot) {
     bool is_balanced = left_sum == right_sum;
     return is_balanced && is_value_balanced(subroot->left) && is_value_balanced(subroot->right);
 }
+
+// master theorem
+// T(n) = aT(n/b) + f(n)
+// a = numero di chiamate ricorsive
+// b = fattore di riduzione
+// f(n) = costo delle operazioni non ricorsive
+
+void ff(int n) {
+    for (int i = n/2; i<=n; ++i) {
+        for (int k = 2; k<=n; k*=k) {
+            for (int j = i; j <= n; ++j) {
+                // do work
+            }
+        }
+    }
+}
